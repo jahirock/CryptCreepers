@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkPointPrefab: {fileID: 3930671097882197080, guid: 8b0f555f9f755704bb11143a239731ea, type: 3}
   checkPointSpawnDelay: 10
-  spawnRadius: 10
+  spawnRadius: 2.75
 --- !u!4 &25528211
 Transform:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7786459, y: 1}
+    m_SensorSize: {x: 1.7769029, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

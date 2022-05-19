@@ -16,6 +16,12 @@ public class ItemSpawner : MonoBehaviour
         StartCoroutine(SpawnCheckPoint());
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+    }
+
     IEnumerator SpawnCheckPoint()
     {
         while(true)
