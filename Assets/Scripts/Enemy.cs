@@ -13,6 +13,12 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<Player>().transform;
+        //Se obtienen los objetos que tienen el tag SpawnPoint
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        //Se selecciona un spawn aleatorio
+        int randomSpawnPoint = Random.Range(0, spawnPoints.Length);
+        //Inicia la posicion del enemigo
+        transform.position = spawnPoints[randomSpawnPoint].transform.position;
     }
 
     void Update()
