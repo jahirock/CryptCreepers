@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     //SerializeField para que aparezca la variable en el editor de unity
     [SerializeField] float speed = 3;
 
+    [SerializeField] int health = 10;
+
     [SerializeField] Transform aim;
 
     [SerializeField] Camera cam;
@@ -64,7 +66,18 @@ public class Player : MonoBehaviour
             //Para que deje disparar de nuevo despues de un tiempo
             StartCoroutine(ReloadGun());
         }
+    }
 
+    public void TrakeDamage()
+    {
+        health--;
+
+        if(health <= 0)
+        {
+            print("Game Over");
+            //Desactiva el objeto del jugador
+            gameObject.SetActive(false);
+        }
     }
 
     IEnumerator ReloadGun()

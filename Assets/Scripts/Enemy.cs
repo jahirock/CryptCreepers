@@ -22,6 +22,14 @@ public class Enemy : MonoBehaviour
         transform.position += (UnityEngine.Vector3)direction.normalized * Time.deltaTime * speed;
     }
 
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.CompareTag("Player"))
+        {
+            other.GetComponent<Player>().TrakeDamage();
+        }
+    }
+
     public void TrakeDamage()
     {
         health--;
