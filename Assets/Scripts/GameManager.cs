@@ -6,10 +6,21 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public int time = 30;
+    [SerializeField] int score = 0;
     //Range limita la variable para que tenga valores de 1 a 10. Aparece un slider en unity
     [Range(1, 10)][SerializeField] float spawnRate = 1;
 
     public int difficulty = 1;
+
+    public int Score {
+        get => score;
+        set {
+            score = value;
+            if(score % 1000 == 0){
+                difficulty++;
+            }
+        }
+    }
 
     private void Awake() {
         if(Instance == null)

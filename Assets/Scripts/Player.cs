@@ -30,6 +30,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] float powerShotDelay = 3;
 
+    [SerializeField] bool invulnerable = false;
+
+    [SerializeField] float invulnerableTime = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,7 +102,13 @@ public class Player : MonoBehaviour
 
     public void TrakeDamage()
     {
+        if(invulnerable) return;
+
         health--;
+
+        invulnerable = true;
+
+        StartCoroutine(MakeVulnerableAgain());
 
         if(health <= 0)
         {
@@ -106,6 +116,12 @@ public class Player : MonoBehaviour
             //Desactiva el objeto del jugador
             gameObject.SetActive(false);
         }
+    }
+
+    IEnumerator MakeVulnerableAgain()
+    {
+        yield return new WaitForSeconds(invulnerableTime);
+        invulnerable = false;
     }
 
     IEnumerator ReloadGun()

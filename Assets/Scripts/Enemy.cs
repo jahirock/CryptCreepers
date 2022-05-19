@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] int health = 1;
 
     [SerializeField] float speed = 1;
+
+    [SerializeField] int scorePoint = 100;
     
     void Start()
     {
@@ -45,6 +47,7 @@ public class Enemy : MonoBehaviour
 
         if(health <= 0)
         {
+            GameManager.Instance.Score += scorePoint;
             Destroy(gameObject);
         }
     }
