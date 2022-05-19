@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] int time = 30;
+    public int time = 30;
     //Range limita la variable para que tenga valores de 1 a 10. Aparece un slider en unity
     [Range(1, 10)][SerializeField] float spawnRate = 1;
 
