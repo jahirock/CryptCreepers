@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField]
-    float speed = 5;
+    [SerializeField] float speed = 5;
+
+    [SerializeField] int health = 3;
+    public bool powerShot = false;
 
     void Start()
     {
@@ -22,7 +24,16 @@ public class Bullet : MonoBehaviour
         if(other.CompareTag("Enemy"))
         {
             other.GetComponent<Enemy>().TrakeDamage();
-            Destroy(gameObject);
+            if(!powerShot)
+            {
+                Destroy(gameObject);
+            }
+
+            health--;
+            if(health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

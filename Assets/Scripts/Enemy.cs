@@ -23,9 +23,12 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        UnityEngine.Vector2 direction = player.position - transform.position;
-        //Se normaliza el vector de la direccion para que siempre tenga la misma velocidad.
-        transform.position += (UnityEngine.Vector3)direction.normalized * Time.deltaTime * speed;
+        if(player != null)
+        {
+            UnityEngine.Vector2 direction = player.position - transform.position;
+            //Se normaliza el vector de la direccion para que siempre tenga la misma velocidad.
+            transform.position += (UnityEngine.Vector3)direction.normalized * Time.deltaTime * speed;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other) 

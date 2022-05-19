@@ -155,6 +155,10 @@ MonoBehaviour:
   checkPointPrefab: {fileID: 3930671097882197080, guid: 8b0f555f9f755704bb11143a239731ea, type: 3}
   checkPointSpawnDelay: 10
   spawnRadius: 2.75
+  powerUpPrefab:
+  - {fileID: 1103695289405492696, guid: 00727f28e20779844b6968c7f8a4e92b, type: 3}
+  - {fileID: 1103695289405492696, guid: 3a2b2ea996260cb4a972b31acf8b3c26, type: 3}
+  powerUpSpawnDelay: 12
 --- !u!4 &25528211
 Transform:
   m_ObjectHideFlags: 0
@@ -598,6 +602,7 @@ MonoBehaviour:
   cam: {fileID: 519420031}
   bulletPrefab: {fileID: 5188301444637567693, guid: 87a183477652949468e0165fcc54c742, type: 3}
   fireRate: 1
+  powerShotDelay: 3
 --- !u!212 &545447157
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -759,7 +764,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7769029, y: 1}
+    m_SensorSize: {x: 1.7783641, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

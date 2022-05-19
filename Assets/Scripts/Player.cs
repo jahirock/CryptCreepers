@@ -26,6 +26,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] float fireRate = 1;
 
+    bool powerShotEnabled = false;
+
+    [SerializeField] float powerShotDelay = 3;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,10 +65,34 @@ public class Player : MonoBehaviour
             Quaternion targetRotation = Quaternion.AngleAxis(angle, UnityEngine.Vector3.forward);
 
             //Crea la bala
-            Instantiate(bulletPrefab, transform.position, targetRotation);
-
+            Transform bulletClone = Instantiate(bulletPrefab, transform.position, targetRotation);
+            
+            //Si esta activo el powerShot se lo indica a la bala
+            if(powerShotEnabled) {
+                bulletClone.GetComponent<Bullet>().powerShot = true;
+            }
             //Para que deje disparar de nuevo despues de un tiempo
             StartCoroutine(ReloadGun());
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("PowerUp"))
+        {
+            switch(other.GetComponent<PowerUp>().powerUpType)
+            {
+                case PowerUp.PowerUpType.FireRateIncrease:
+                    //Incrementar cadencia del disparo
+                    fireRate++;
+                    break;
+                case PowerUp.PowerUpType.PowerShot:
+                    //Activar el powerShot
+                    powerShotEnabled = true;
+                    StartCoroutine(PowerShotEnd());
+                    break;
+            }
+
+            Destroy(other.gameObject, 0.1F);
         }
     }
 
@@ -84,5 +112,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(1 / fireRate);
         gunLoaded = true;
+    }
+
+    IEnumerator PowerShotEnd()
+    {
+        yield return new WaitForSeconds(powerShotDelay);
+        powerShotEnabled = false;
     }
 }
