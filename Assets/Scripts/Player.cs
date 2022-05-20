@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     float v;
 
     //SerializeField para que aparezca la variable en el editor de unity
-    [SerializeField] float speed = 3;
+    public float speed = 3;
 
     [SerializeField] int health = 10;
 
@@ -34,10 +34,18 @@ public class Player : MonoBehaviour
 
     [SerializeField] float invulnerableTime = 3;
 
+    public int Health {
+        get => health;
+        set {
+            health = value;
+            UIManager.Instance.UpdateUIHealth(health);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Health = health;
     }
 
     // Update is called once per frame
@@ -104,17 +112,19 @@ public class Player : MonoBehaviour
     {
         if(invulnerable) return;
 
-        health--;
+        Health--;
 
         invulnerable = true;
 
         StartCoroutine(MakeVulnerableAgain());
 
-        if(health <= 0)
+        if(Health <= 0)
         {
             print("Game Over");
+            GameManager.Instance.gameOver = true;
+            UIManager.Instance.ShowGameOverScreen();
             //Desactiva el objeto del jugador
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
         }
     }
 

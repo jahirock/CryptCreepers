@@ -8,7 +8,7 @@ public class CheckPoint : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Player"))
         {
-            GameManager.Instance.time += addedTime;
+            GameManager.Instance.TimeLeft += addedTime;
             Destroy(gameObject, 0.1F);
         }
     }

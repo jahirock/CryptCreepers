@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,12 +11,27 @@ public class GameManager : MonoBehaviour
     //Range limita la variable para que tenga valores de 1 a 10. Aparece un slider en unity
     [Range(1, 10)][SerializeField] float spawnRate = 1;
 
+    public bool gameOver = false;
+
     public int difficulty = 1;
+
+    public int TimeLeft {
+        get => time;
+        set {
+            time = value;
+            UIManager.Instance.UpdateUITime(time);
+        }
+    }
+
 
     public int Score {
         get => score;
         set {
             score = value;
+
+            //Actualiza el score en pantalla
+            UIManager.Instance.UpdateUIScore(score);
+
             if(score % 1000 == 0){
                 difficulty++;
             }
@@ -36,12 +52,20 @@ public class GameManager : MonoBehaviour
 
     IEnumerator CountDown()
     {
-        while(time > 0)
+        while(TimeLeft > 0)
         {
             yield return new WaitForSeconds(1/spawnRate);
-            time--;
+            TimeLeft--;
         }
 
         //Game Over
+        gameOver = true;
+        UIManager.Instance.ShowGameOverScreen();
+    }
+
+    public void PlayAgain()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Game");
     }
 }
