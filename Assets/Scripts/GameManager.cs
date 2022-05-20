@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Awake() {
+        print("AWAKE gameMAnager");
         if(Instance == null)
         {
             Instance = this;
@@ -47,6 +48,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        print("Start GameManager");
         StartCoroutine(CountDown());
     }
 
@@ -67,5 +69,11 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Game");
+    }
+
+    public void BackToTitleScreen()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("TitleScreen");
     }
 }
