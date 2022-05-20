@@ -34,6 +34,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] float invulnerableTime = 3;
 
+    [SerializeField] Animator anim;
+
+    [SerializeField] SpriteRenderer spriteRenderer;
+
     public int Health {
         get => health;
         set {
@@ -85,6 +89,19 @@ public class Player : MonoBehaviour
             }
             //Para que deje disparar de nuevo despues de un tiempo
             StartCoroutine(ReloadGun());
+        }
+
+        //Se envia la velocidad de movimiento al animador para que cambie de animacion cuando este corriendo
+        anim.SetFloat("Speed", moveDirection.magnitude);
+
+        //Segun la posicion de la mira con respecto al jugador se voltea el sprite.
+        if(aim.position.x > transform.position.x)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else if (aim.position.x < transform.position.x)
+        {
+            spriteRenderer.flipX = false;
         }
     }
 
