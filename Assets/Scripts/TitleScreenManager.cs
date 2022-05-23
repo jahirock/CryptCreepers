@@ -5,25 +5,28 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreenManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] AudioSource buttonAudio;
 
     public void StartGame()
     {
+        ReproduceClip();
         SceneManager.LoadScene("Game");
     }
 
     public void ExitGame()
     {
+        StartCoroutine(ExitG());
+    }
+
+    public void ReproduceClip()
+    {
+        buttonAudio.Play();
+    }
+
+    IEnumerator ExitG()
+    {
+        ReproduceClip();
+        yield return new WaitForSeconds(0.5F);
         //Si esta en el editor de unity se cierra de esta forma
         #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
@@ -33,4 +36,5 @@ public class TitleScreenManager : MonoBehaviour
             Application.Quit();
         #endif
     }
+
 }

@@ -37,6 +37,9 @@ public class UIManager : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
+        GameManager.Instance.gameLoopAudio.Stop();
+        GameManager.Instance.gameOverAudio.Play();
+
         gameOverScreen.SetActive(true);
         finalScore.text = "" + GameManager.Instance.Score;
         Time.timeScale = 0;

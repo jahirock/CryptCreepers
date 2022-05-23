@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 
     CameraController camController;
 
+    [SerializeField] AudioClip itemClip;
+
     public int Health {
         get => health;
         set {
@@ -77,7 +79,7 @@ public class Player : MonoBehaviour
         aim.position = transform.position + (UnityEngine.Vector3)facingDirection.normalized;
 
         //Si click izquierdo
-        if(Input.GetMouseButton(0) && gunLoaded)
+        if(Input.GetMouseButton(0) && gunLoaded && health > 0)
         {
             gunLoaded = false;
             //Se obtiene el angulo 
@@ -113,6 +115,9 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("PowerUp"))
         {
+            //Reproducir el audio de los items
+            AudioSource.PlayClipAtPoint(itemClip, transform.position);
+
             switch(other.GetComponent<PowerUp>().powerUpType)
             {
                 case PowerUp.PowerUpType.FireRateIncrease:

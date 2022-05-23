@@ -11,6 +11,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] float speed = 1;
 
     [SerializeField] int scorePoint = 100;
+
+    [SerializeField] AudioClip impactClip;
+    
+    [SerializeField] AudioClip deathClip;
     
     void Start()
     {
@@ -44,11 +48,15 @@ public class Enemy : MonoBehaviour
     public void TrakeDamage()
     {
         health--;
-
+        //Reproduce el audio de las balas al impactar con el enemigo
+        AudioSource.PlayClipAtPoint(impactClip, transform.position);
+        
         if(health <= 0)
         {
             GameManager.Instance.Score += scorePoint;
-            Destroy(gameObject);
+            //Reproduce el audio de muerte del enemigo
+            AudioSource.PlayClipAtPoint(deathClip, transform.position);
+            Destroy(gameObject, 0.1F);
         }
     }
 }

@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     //Range limita la variable para que tenga valores de 1 a 10. Aparece un slider en unity
     [Range(1, 10)][SerializeField] float spawnRate = 1;
 
+    public AudioSource gameLoopAudio;
+    public AudioSource gameOverAudio;
+    public AudioSource buttonAudio;
+
     public bool gameOver = false;
 
     public int difficulty = 1;
@@ -67,12 +71,14 @@ public class GameManager : MonoBehaviour
 
     public void PlayAgain()
     {
+        buttonAudio.Play();
         Time.timeScale = 1;
         SceneManager.LoadScene("Game");
     }
 
     public void BackToTitleScreen()
     {
+        buttonAudio.Play();
         Time.timeScale = 1;
         SceneManager.LoadScene("TitleScreen");
     }
