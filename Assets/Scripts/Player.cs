@@ -8,6 +8,10 @@ public class Player : MonoBehaviour
     
     float h;
     float v;
+    bool gunLoaded = true;
+    bool powerShotEnabled = false;
+    UnityEngine.Vector2 facingDirection;
+    CameraController camController;
 
     //SerializeField para que aparezca la variable en el editor de unity
     public float speed = 3;
@@ -18,15 +22,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] Camera cam;
 
-    UnityEngine.Vector2 facingDirection;
-
     [SerializeField] Transform bulletPrefab;
 
-    bool gunLoaded = true;
-
     [SerializeField] float fireRate = 1;
-
-    bool powerShotEnabled = false;
 
     [SerializeField] float powerShotDelay = 3;
 
@@ -39,8 +37,6 @@ public class Player : MonoBehaviour
     [SerializeField] SpriteRenderer spriteRenderer;
 
     [SerializeField] float blinkRate = 1;
-
-    CameraController camController;
 
     [SerializeField] AudioClip itemClip;
 
@@ -62,16 +58,10 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Obtiene los botones de movimiento WASD y flechas de mov (-1 a 1)
-        h = Input.GetAxis("Horizontal");
-        v = Input.GetAxis("Vertical");
-
-        moveDirection.x = h;
-        moveDirection.y = v;
-
+        ReadInput();
+    
         //Se cambia la posicion normalizando con deltaTime
         transform.position += moveDirection * Time.deltaTime * speed;
-
 
         //Movimiento de la mira
         //Transforma la posicion del mouse en pantalla a la posicion en el mundo y le resta la posicion del jugador para obtener la direccion a la que esta mirando
@@ -81,26 +71,46 @@ public class Player : MonoBehaviour
         //Si click izquierdo
         if(Input.GetMouseButton(0) && gunLoaded && health > 0)
         {
-            gunLoaded = false;
-            //Se obtiene el angulo 
-            float angle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
-            //Se crea para pasarselo al instantiate
-            Quaternion targetRotation = Quaternion.AngleAxis(angle, UnityEngine.Vector3.forward);
-
-            //Crea la bala
-            Transform bulletClone = Instantiate(bulletPrefab, transform.position, targetRotation);
-            
-            //Si esta activo el powerShot se lo indica a la bala
-            if(powerShotEnabled) {
-                bulletClone.GetComponent<Bullet>().powerShot = true;
-            }
-            //Para que deje disparar de nuevo despues de un tiempo
-            StartCoroutine(ReloadGun());
+            Shoot();
         }
 
         //Se envia la velocidad de movimiento al animador para que cambie de animacion cuando este corriendo
         anim.SetFloat("Speed", moveDirection.magnitude);
 
+        UpdatePlayerGraphics();
+    }
+
+    void ReadInput()
+    {
+        //Obtiene los botones de movimiento WASD y flechas de mov (-1 a 1)
+        h = Input.GetAxis("Horizontal");
+        v = Input.GetAxis("Vertical");
+
+        moveDirection.x = h;
+        moveDirection.y = v;
+    }
+
+    void Shoot()
+    {
+        gunLoaded = false;
+        //Se obtiene el angulo 
+        float angle = Mathf.Atan2(facingDirection.y, facingDirection.x) * Mathf.Rad2Deg;
+        //Se crea para pasarselo al instantiate
+        Quaternion targetRotation = Quaternion.AngleAxis(angle, UnityEngine.Vector3.forward);
+
+        //Crea la bala
+        Transform bulletClone = Instantiate(bulletPrefab, transform.position, targetRotation);
+        
+        //Si esta activo el powerShot se lo indica a la bala
+        if(powerShotEnabled) {
+            bulletClone.GetComponent<Bullet>().powerShot = true;
+        }
+        //Para que deje disparar de nuevo despues de un tiempo
+        StartCoroutine(ReloadGun());
+    }
+
+    void UpdatePlayerGraphics()
+    {
         //Segun la posicion de la mira con respecto al jugador se voltea el sprite.
         if(aim.position.x > transform.position.x)
         {

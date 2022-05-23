@@ -54,6 +54,8 @@ public class GameManager : MonoBehaviour
     {
         print("Start GameManager");
         StartCoroutine(CountDown());
+        UIManager.Instance.UpdateUITime(time);
+        UIManager.Instance.UpdateUIScore(score);
     }
 
     IEnumerator CountDown()
