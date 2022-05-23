@@ -38,6 +38,10 @@ public class Player : MonoBehaviour
 
     [SerializeField] SpriteRenderer spriteRenderer;
 
+    [SerializeField] float blinkRate = 1;
+
+    CameraController camController;
+
     public int Health {
         get => health;
         set {
@@ -50,6 +54,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         Health = health;
+        camController = FindObjectOfType<CameraController>();
     }
 
     // Update is called once per frame
@@ -133,6 +138,8 @@ public class Player : MonoBehaviour
 
         invulnerable = true;
 
+        camController.Shake();
+
         StartCoroutine(MakeVulnerableAgain());
 
         if(Health <= 0)
@@ -147,8 +154,22 @@ public class Player : MonoBehaviour
 
     IEnumerator MakeVulnerableAgain()
     {
+        StartCoroutine(BlinkRoutine());
         yield return new WaitForSeconds(invulnerableTime);
         invulnerable = false;
+    }
+
+    IEnumerator BlinkRoutine()
+    {
+        int t = 10;
+        while(t > 0)
+        {
+            spriteRenderer.enabled = false;
+            yield return new WaitForSeconds(t * blinkRate);
+            spriteRenderer.enabled = true;
+            yield return new WaitForSeconds(t * blinkRate);
+            t--;
+        }
     }
 
     IEnumerator ReloadGun()

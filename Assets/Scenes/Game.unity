@@ -637,6 +637,7 @@ GameObject:
   - component: {fileID: 307564439}
   - component: {fileID: 307564438}
   - component: {fileID: 307564437}
+  - component: {fileID: 307564440}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -720,6 +721,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &307564440
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 307564435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 8608ec81ee27a15488d33f9dad239e91, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 0
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &381021031
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,7 +1512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  health: 1
+  health: 4
   aim: {fileID: 482596910}
   cam: {fileID: 519420031}
   bulletPrefab: {fileID: 5188301444637567693, guid: 87a183477652949468e0165fcc54c742, type: 3}
@@ -1504,6 +1522,7 @@ MonoBehaviour:
   invulnerableTime: 3
   anim: {fileID: 2029723771}
   spriteRenderer: {fileID: 2029723772}
+  blinkRate: 0.01
 --- !u!4 &545447158
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,6 +1836,7 @@ GameObject:
   m_Component:
   - component: {fileID: 679794975}
   - component: {fileID: 679794974}
+  - component: {fileID: 679794976}
   m_Layer: 0
   m_Name: CM vcam1
   m_TagString: Untagged
@@ -1853,7 +1873,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7775832, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -1878,6 +1898,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &679794976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 679794973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05c3c19c3da26d2479ec938c2a7699c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &719948150
 GameObject:
   m_ObjectHideFlags: 0
